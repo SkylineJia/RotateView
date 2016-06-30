@@ -22,7 +22,7 @@ class SKRotateView: UIView {
     private let container = UIView()
     private let imgContentView = UIView()
     private let imageView = UIImageView()
-    private let imageHoleView = RotateHoleView()
+    private let imageHoleView = SKRotateHoleView()
     
     private var startingVector = CGVector()
     private var actualVector = CGVector()

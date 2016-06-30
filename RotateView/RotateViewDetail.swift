@@ -11,7 +11,7 @@ import SnapKit
 
 class RotateViewDetail: UIViewController {
 
-    let rotateView = RotateView()
+    let rotateView = SKRotateView()
     var image: UIImage!
     
     override func viewDidLoad() {
