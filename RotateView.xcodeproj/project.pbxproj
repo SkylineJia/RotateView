@@ -12,7 +12,7 @@
 		2D0792DE1D24BBF60063E2D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D0792DC1D24BBF60063E2D5 /* Main.storyboard */; };
 		2D0792E01D24BBF60063E2D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D0792DF1D24BBF60063E2D5 /* Assets.xcassets */; };
 		2D0792E31D24BBF60063E2D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D0792E11D24BBF60063E2D5 /* LaunchScreen.storyboard */; };
-		2D0792EB1D24BC200063E2D5 /* RotateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0792EA1D24BC200063E2D5 /* RotateView.swift */; };
+		2D0792EB1D24BC200063E2D5 /* SKRotateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0792EA1D24BC200063E2D5 /* SKRotateView.swift */; };
 		2D0792EF1D24F3CE0063E2D5 /* RotateViewDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0792EE1D24F3CE0063E2D5 /* RotateViewDemo.swift */; };
 		5970CA81645340C382F96E2F /* Pods_RotateView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3445C5AB5510FD327B94A30 /* Pods_RotateView.framework */; };
 /* End PBXBuildFile section */
@@ -25,7 +25,7 @@
 		2D0792DF1D24BBF60063E2D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2D0792E21D24BBF60063E2D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2D0792E41D24BBF60063E2D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2D0792EA1D24BC200063E2D5 /* RotateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotateView.swift; sourceTree = "<group>"; };
+		2D0792EA1D24BC200063E2D5 /* SKRotateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKRotateView.swift; sourceTree = "<group>"; };
 		2D0792EE1D24F3CE0063E2D5 /* RotateViewDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotateViewDemo.swift; sourceTree = "<group>"; };
 		741A73B99BCA999EBF74BA51 /* Pods-RotateView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RotateView.release.xcconfig"; path = "Pods/Target Support Files/Pods-RotateView/Pods-RotateView.release.xcconfig"; sourceTree = "<group>"; };
 		99D966778E03C145E97A8D47 /* Pods-RotateView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RotateView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RotateView/Pods-RotateView.debug.xcconfig"; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 		2D0792F21D2503D80063E2D5 /* RotateView */ = {
 			isa = PBXGroup;
 			children = (
-				2D0792EA1D24BC200063E2D5 /* RotateView.swift */,
+				2D0792EA1D24BC200063E2D5 /* SKRotateView.swift */,
 			);
 			name = RotateView;
 			sourceTree = "<group>";
@@ -224,7 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D0792EB1D24BC200063E2D5 /* RotateView.swift in Sources */,
+				2D0792EB1D24BC200063E2D5 /* SKRotateView.swift in Sources */,
 				2D0792DB1D24BBF60063E2D5 /* RotateViewDetail.swift in Sources */,
 				2D0792EF1D24F3CE0063E2D5 /* RotateViewDemo.swift in Sources */,
 				2D0792D91D24BBF60063E2D5 /* AppDelegate.swift in Sources */,

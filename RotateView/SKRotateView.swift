@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RotateView: UIView {
+class SKRotateView: UIView {
     
     var image: UIImage!
     /// 背景颜色
@@ -196,7 +196,7 @@ class RotateView: UIView {
 }
 
 
-class RotateHoleView: UIView {
+class SKRotateHoleView: UIView {
     
     /// 背景颜色
     var screenColor = UIColor.blackColor() {

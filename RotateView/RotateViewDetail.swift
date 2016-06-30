@@ -45,9 +45,9 @@ class RotateViewDetail: UIViewController {
         var title: String!
         if didFinishSavingWithError != nil
         {
-            title = "保存失败"
+            title = "图片保存失败"
         } else {
-            title = "保存成功"
+            title = "图片保存成功"
         }
         
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .Alert)
