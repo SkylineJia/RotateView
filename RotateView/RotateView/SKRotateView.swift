@@ -12,25 +12,25 @@ class SKRotateView: UIView {
     
     var image: UIImage!
     /// 背景颜色
-    var screenColor = UIColor.blackColor() {
+    var screenColor = UIColor.black {
         didSet { imageHoleView.screenColor = screenColor }
     }
     /// 背景透明度
     var screenAlpha: CGFloat = 0.5 {
         didSet { imageHoleView.screenAlpha = screenAlpha }
     }
-    private let container = UIView()
-    private let imgContentView = UIView()
-    private let imageView = UIImageView()
-    private let imageHoleView = SKRotateHoleView()
+    fileprivate let container = UIView()
+    fileprivate let imgContentView = UIView()
+    fileprivate let imageView = UIImageView()
+    fileprivate let imageHoleView = SKRotateHoleView()
     
-    private var startingVector = CGVector()
-    private var actualVector = CGVector()
-    private var startingTransform = CGAffineTransformIdentity
-    private var initialFrame = CGRectZero
+    fileprivate var startingVector = CGVector()
+    fileprivate var actualVector = CGVector()
+    fileprivate var startingTransform = CGAffineTransform.identity
+    fileprivate var initialFrame = CGRect.zero
     // 每次触发旋转的弧度
-    private var rotateTheta: CGFloat = 0.0
-    private var scale: CGFloat = 1
+    fileprivate var rotateTheta: CGFloat = 0.0
+    fileprivate var scale: CGFloat = 1
     // 旋转裁剪后的图片
     var processedImage: UIImage! {
         get {
@@ -39,14 +39,14 @@ class SKRotateView: UIView {
             UIGraphicsBeginImageContext(outputSize)
             let ctn = UIGraphicsGetCurrentContext()!
             
-            CGContextTranslateCTM(ctn, outputSize.width/2, outputSize.height/2)
-            CGContextRotateCTM(ctn, rotateRadians)
-            CGContextTranslateCTM(ctn, -outputSize.width/2, -outputSize.height/2)
-            CGContextScaleCTM(ctn, 1/scale, 1/scale)
-            CGContextTranslateCTM(ctn, (scale-1)/2*outputSize.width, (scale-1)/2*outputSize.height)
+            ctn.translateBy(x: outputSize.width/2, y: outputSize.height/2)
+            ctn.rotate(by: rotateRadians)
+            ctn.translateBy(x: -outputSize.width/2, y: -outputSize.height/2)
+            ctn.scaleBy(x: 1/scale, y: 1/scale)
+            ctn.translateBy(x: (scale-1)/2*outputSize.width, y: (scale-1)/2*outputSize.height)
             
             let rect = CGRect(x: 0, y: 0, width: imgSize.width, height: imgSize.height)
-            image.drawInRect(rect)
+            image.draw(in: rect)
             
             let  processedImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
@@ -75,7 +75,7 @@ class SKRotateView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
         
         let pan = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(_:)))
         self.addGestureRecognizer(pan)
@@ -84,7 +84,7 @@ class SKRotateView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        guard let img = image where img.size.width>0 && img.size.height>0 else {
+        guard let img = image , img.size.width>0 && img.size.height>0 else {
             return
         }
         self.addSubview(container)
@@ -97,10 +97,10 @@ class SKRotateView: UIView {
         else {
             size = CGSize(width: self.bounds.height*image.size.width/image.size.height, height: self.bounds.height)
         }
-        container.frame = CGRect(origin: CGPointZero, size: size)
-        container.center = CGPoint(x: CGRectGetMidX(self.bounds), y: CGRectGetMidY(self.bounds))
+        container.frame = CGRect(origin: CGPoint.zero, size: size)
+        container.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
         container.clipsToBounds = true
-        container.backgroundColor = UIColor.blackColor()
+        container.backgroundColor = UIColor.black
         
         container.addSubview(imgContentView)
         imgContentView.frame = container.bounds
@@ -123,19 +123,19 @@ class SKRotateView: UIView {
     }
     
     // 通过平移计算旋转角度
-    func handlePan(sender: UIPanGestureRecognizer) {
+    func handlePan(_ sender: UIPanGestureRecognizer) {
         let locationView = sender.view!
-        let center = CGPoint(x: CGRectGetMidX(locationView.bounds), y: CGRectGetMidY(locationView.bounds))
+        let center = CGPoint(x: locationView.bounds.midX, y: locationView.bounds.midY)
         
         switch sender.state {
-        case .Began:
-            let actualPoint = sender.locationOfTouch(0, inView: locationView)
+        case .began:
+            let actualPoint = sender.location(ofTouch: 0, in: locationView)
             startingVector.dx = actualPoint.x - center.x
             startingVector.dy = actualPoint.y - center.y
             startingTransform = imageView.transform
             
-        case .Changed:
-            let actualPoint = sender.locationOfTouch(0, inView: locationView)
+        case .changed:
+            let actualPoint = sender.location(ofTouch: 0, in: locationView)
             actualVector.dx = actualPoint.x - center.x
             actualVector.dy = actualPoint.y - center.y
             
@@ -148,7 +148,7 @@ class SKRotateView: UIView {
             if crossProduct < 0 {
                 rotateTheta = CGFloat(2*M_PI) - rotateTheta
             }
-            imageView.transform = CGAffineTransformRotate(startingTransform, rotateTheta)
+            imageView.transform = startingTransform.rotated(by: rotateTheta)
             
             let sinA = min(image.size.width, image.size.height)/sqrt(image.size.width*image.size.width + image.size.height*image.size.height)
             let angleA = asin(sinA)
@@ -161,9 +161,9 @@ class SKRotateView: UIView {
             rect.origin.y = initialFrame.midY - rect.size.height/2
             imageHoleView.holeFrame = rect
             
-        case .Ended:
-            UIView.animateWithDuration(0.3, animations: {
-                self.imgContentView.transform = CGAffineTransformMakeScale(1/self.scale, 1/self.scale)
+        case .ended:
+            UIView.animate(withDuration: 0.3, animations: {
+                self.imgContentView.transform = CGAffineTransform(scaleX: 1/self.scale, y: 1/self.scale)
                 }, completion: { (_) in
             })
             
@@ -172,21 +172,21 @@ class SKRotateView: UIView {
         }
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        UIView.animateWithDuration(
-            0.3,
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIView.animate(
+            withDuration: 0.3,
             animations: {
-                self.imgContentView.transform = CGAffineTransformMakeScale(1, 1)
+                self.imgContentView.transform = CGAffineTransform(scaleX: 1, y: 1)
             },
             completion: { (_) in
             })
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        UIView.animateWithDuration(
-            0.3,
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIView.animate(
+            withDuration: 0.3,
             animations: {
-                self.imgContentView.transform = CGAffineTransformMakeScale(1/self.scale, 1/self.scale)
+                self.imgContentView.transform = CGAffineTransform(scaleX: 1/self.scale, y: 1/self.scale)
             },
             completion: { (_) in
             })
@@ -199,7 +199,7 @@ class SKRotateView: UIView {
 class SKRotateHoleView: UIView {
     
     /// 背景颜色
-    var screenColor = UIColor.blackColor() {
+    var screenColor = UIColor.black {
         didSet { setNeedsDisplay() }
     }
     /// 背景透明度
@@ -207,42 +207,42 @@ class SKRotateHoleView: UIView {
         didSet { setNeedsDisplay() }
     }
     
-    var holeFrame = CGRectZero {
+    var holeFrame = CGRect.zero {
         didSet { self.setNeedsDisplay() }
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
         let ctx = UIGraphicsGetCurrentContext()!
         addFillScreen(ctx, rect: self.bounds)
         clearRect(ctx, rect: holeFrame)
     }
     
-    func addFillScreen(ctx: CGContextRef, rect: CGRect) {
+    func addFillScreen(_ ctx: CGContext, rect: CGRect) {
         var red: CGFloat = 0.0
         var green: CGFloat = 0.0
         var blue: CGFloat = 0.0
         var alpha: CGFloat = 0.0
         
         if screenColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha) == true {
-            CGContextSetRGBFillColor(ctx, red, green, blue, alpha*screenAlpha)
+            ctx.setFillColor(red: red, green: green, blue: blue, alpha: alpha*screenAlpha)
         } else {
-            CGContextSetRGBFillColor(ctx, 0.2, 0.2, 0.2, 0.7)
+            ctx.setFillColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 0.7)
         }
-        CGContextFillRect(ctx, rect)
+        ctx.fill(rect)
     }
     
-    func clearRect(ctx: CGContextRef, rect: CGRect) {
-        CGContextClearRect(ctx, rect)
+    func clearRect(_ ctx: CGContext, rect: CGRect) {
+        ctx.clear(rect)
     }
     
 }

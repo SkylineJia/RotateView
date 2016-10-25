@@ -20,15 +20,15 @@ class RotateViewDemo: UIViewController {
         }
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.registerClass(DemoCell.self, forCellReuseIdentifier: "cellId")
+        tableView.register(DemoCell.self, forCellReuseIdentifier: "cellId")
         tableView.tableFooterView = UIView()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = "RotateViewDemo"
     }
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.title = ""
     }
@@ -38,22 +38,22 @@ class RotateViewDemo: UIViewController {
 
 extension RotateViewDemo: UITableViewDelegate, UITableViewDataSource {
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cellId", forIndexPath: indexPath) as! DemoCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! DemoCell
         
-        if indexPath.row == 0 {
+        if (indexPath as NSIndexPath).row == 0 {
             cell.imgView.image = UIImage(named: "IMG_2527")
             cell.label.text = "width > height"
         } else {
@@ -63,12 +63,12 @@ extension RotateViewDemo: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let rotate = RotateViewDetail()
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as! DemoCell
-        if indexPath.row == 0 {
+        let cell = tableView.cellForRow(at: indexPath) as! DemoCell
+        if (indexPath as NSIndexPath).row == 0 {
             rotate.image = cell.imgView.image
-        } else if indexPath.row == 1 {
+        } else if (indexPath as NSIndexPath).row == 1 {
             rotate.image = cell.imgView.image
         }
         navigationController?.pushViewController(rotate, animated: true)
@@ -95,8 +95,8 @@ class DemoCell: UITableViewCell {
             make.bottom.equalTo(-10)
             make.width.equalTo(imgView.snp_height)
         }
-        imgView.contentMode = .ScaleAspectFit
-        imgView.backgroundColor = UIColor.lightGrayColor()
+        imgView.contentMode = .scaleAspectFit
+        imgView.backgroundColor = UIColor.lightGray
         
         label.snp_makeConstraints { (make) in
             make.centerY.equalTo(imgView)

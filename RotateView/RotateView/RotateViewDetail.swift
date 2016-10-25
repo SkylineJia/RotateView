@@ -17,8 +17,8 @@ class RotateViewDetail: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "RotateViewDetail"
-        view.backgroundColor = UIColor.whiteColor()
-        let rightBtn = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(self.handleRightBtn))
+        view.backgroundColor = UIColor.white
+        let rightBtn = UIBarButtonItem(title: "保存", style: .plain, target: self, action: #selector(self.handleRightBtn))
         self.navigationItem.rightBarButtonItem = rightBtn
         
         rotateView.image = image
@@ -33,14 +33,14 @@ class RotateViewDetail: UIViewController {
     
     func handleRightBtn() {
         let img = rotateView.processedImage
-        saveImageToAlbum(img)
+        saveImageToAlbum(img!)
     }
     
-    func saveImageToAlbum(image: UIImage) {
+    func saveImageToAlbum(_ image: UIImage) {
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
-    @objc func image(image: UIImage, didFinishSavingWithError: NSError?,contextInfo: AnyObject)
+    @objc func image(_ image: UIImage, didFinishSavingWithError: NSError?,contextInfo: AnyObject)
     {
         var title: String!
         if didFinishSavingWithError != nil
@@ -50,15 +50,15 @@ class RotateViewDetail: UIViewController {
             title = "图片保存成功"
         }
         
-        let alert = UIAlertController(title: title, message: nil, preferredStyle: .Alert)
-        let confirmAction = UIAlertAction(title: "OK", style: .Default) { (_) in
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "OK", style: .default) { (_) in
             
         }
-        let cancelAction = UIAlertAction(title: "cancel", style: .Cancel) { (_) in
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel) { (_) in
         }
         alert.addAction(confirmAction)
         alert.addAction(cancelAction)
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
 
 
