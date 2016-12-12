@@ -15,7 +15,7 @@ class RotateViewDemo: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(0)
         }
         tableView.delegate = self
@@ -89,18 +89,18 @@ class DemoCell: UITableViewCell {
         contentView.addSubview(imgView)
         contentView.addSubview(label)
         
-        imgView.snp_makeConstraints { (make) in
+        imgView.snp.makeConstraints { (make) in
             make.left.equalTo(10)
             make.top.equalTo(10)
             make.bottom.equalTo(-10)
-            make.width.equalTo(imgView.snp_height)
+            make.width.equalTo(imgView.snp.height)
         }
         imgView.contentMode = .scaleAspectFit
         imgView.backgroundColor = UIColor.lightGray
         
-        label.snp_makeConstraints { (make) in
+        label.snp.makeConstraints { (make) in
             make.centerY.equalTo(imgView)
-            make.left.equalTo(imgView.snp_right).offset(30)
+            make.left.equalTo(imgView.snp.right).offset(30)
         }
     }
     

@@ -23,12 +23,13 @@ class RotateViewDetail: UIViewController {
         
         rotateView.image = image
         view.addSubview(rotateView)
-        rotateView.snp_makeConstraints { (make) in
+        rotateView.snp.makeConstraints { (make) in
             make.top.equalTo(64)
             make.left.equalTo(0)
             make.right.equalTo(0)
             make.bottom.equalTo(0)
         }
+        rotateView.screenColor = UIColor.black
     }
     
     func handleRightBtn() {
@@ -36,12 +37,36 @@ class RotateViewDetail: UIViewController {
         saveImageToAlbum(img!)
     }
     
+    let indicattor = UIActivityIndicatorView(activityIndicatorStyle: .white)
     func saveImageToAlbum(_ image: UIImage) {
+        
+        
+        self.view.addSubview(indicattor)
+        indicattor.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.centerY.equalToSuperview().offset((UIApplication.shared.statusBarFrame.height+self.navigationController!.navigationBar.frame.height)/2)
+            
+        }
+        indicattor.startAnimating()
+        
+        self.navigationController?.view.isUserInteractionEnabled = false
+        
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+        
+        
+        
+        
+        
+        
+        
+        
     }
     
     @objc func image(_ image: UIImage, didFinishSavingWithError: NSError?,contextInfo: AnyObject)
     {
+        self.navigationController?.view.isUserInteractionEnabled = true
+        indicattor.stopAnimating()
+        indicattor.removeFromSuperview()
         var title: String!
         if didFinishSavingWithError != nil
         {
@@ -51,13 +76,7 @@ class RotateViewDetail: UIViewController {
         }
         
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "OK", style: .default) { (_) in
-            
-        }
-        let cancelAction = UIAlertAction(title: "cancel", style: .cancel) { (_) in
-        }
-        alert.addAction(confirmAction)
-        alert.addAction(cancelAction)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 

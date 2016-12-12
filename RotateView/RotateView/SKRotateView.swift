@@ -13,16 +13,16 @@ class SKRotateView: UIView {
     var image: UIImage!
     /// 背景颜色
     var screenColor = UIColor.black {
-        didSet { imageHoleView.screenColor = screenColor }
+        didSet { holeView.screenColor = screenColor }
     }
     /// 背景透明度
     var screenAlpha: CGFloat = 0.5 {
-        didSet { imageHoleView.screenAlpha = screenAlpha }
+        didSet { holeView.screenAlpha = screenAlpha }
     }
     fileprivate let container = UIView()
     fileprivate let imgContentView = UIView()
     fileprivate let imageView = UIImageView()
-    fileprivate let imageHoleView = SKRotateHoleView()
+    fileprivate let holeView = HoleView()
     
     fileprivate var startingVector = CGVector()
     fileprivate var actualVector = CGVector()
@@ -111,11 +111,11 @@ class SKRotateView: UIView {
         // 去锯齿
         imageView.layer.shouldRasterize = true
         
-        imgContentView.addSubview(imageHoleView)
-        imageHoleView.frame = imageView.frame
-        imageHoleView.holeFrame = imageView.frame
+        imgContentView.addSubview(holeView)
+        holeView.frame = imageView.frame
+        holeView.holeFrame = imageView.frame
         
-        initialFrame = imageHoleView.holeFrame
+        initialFrame = holeView.holeFrame
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -159,7 +159,7 @@ class SKRotateView: UIView {
             var rect = CGRect(x: 0, y: 0, width: initialFrame.width*scale, height: initialFrame.height*scale)
             rect.origin.x = initialFrame.midX - rect.size.width/2
             rect.origin.y = initialFrame.midY - rect.size.height/2
-            imageHoleView.holeFrame = rect
+            holeView.holeFrame = rect
             
         case .ended:
             UIView.animate(withDuration: 0.3, animations: {
@@ -195,8 +195,8 @@ class SKRotateView: UIView {
 
 }
 
-
-class SKRotateHoleView: UIView {
+/// 中间透明的View
+class HoleView: UIView {
     
     /// 背景颜色
     var screenColor = UIColor.black {
