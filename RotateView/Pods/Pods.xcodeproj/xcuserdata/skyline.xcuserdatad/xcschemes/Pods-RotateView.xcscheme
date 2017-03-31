@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0830"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B2E726CF6B133A198425616EE287C692"
+               BlueprintIdentifier = "F3E59EAE45E0017D2C907A98F680E68A"
                BuildableName = "Pods_RotateView.framework"
                BlueprintName = "Pods-RotateView"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B2E726CF6B133A198425616EE287C692"
+            BlueprintIdentifier = "F3E59EAE45E0017D2C907A98F680E68A"
             BuildableName = "Pods_RotateView.framework"
             BlueprintName = "Pods-RotateView"
             ReferencedContainer = "container:Pods.xcodeproj">

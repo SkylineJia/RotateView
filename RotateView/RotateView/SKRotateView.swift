@@ -66,7 +66,7 @@ class SKRotateView: UIView {
             var radians = acos(imageView.transform.a)
             
             if imageView.transform.b < 0 {
-                radians = 2*CGFloat(M_PI) - radians
+                radians = 2*CGFloat(Double.pi) - radians
             }
             return radians
         }
@@ -146,13 +146,13 @@ class SKRotateView: UIView {
             // 叉积
             let crossProduct = startingVector.dx*actualVector.dy - startingVector.dy*actualVector.dx
             if crossProduct < 0 {
-                rotateTheta = CGFloat(2*M_PI) - rotateTheta
+                rotateTheta = CGFloat(2*Double.pi) - rotateTheta
             }
             imageView.transform = startingTransform.rotated(by: rotateTheta)
             
             let sinA = min(image.size.width, image.size.height)/sqrt(image.size.width*image.size.width + image.size.height*image.size.height)
             let angleA = asin(sinA)
-            let angleB = CGFloat(M_PI) - angleA - acos(abs(imageView.transform.a))
+            let angleB = CGFloat(Double.pi) - angleA - acos(abs(imageView.transform.a))
             let sinB = sin(angleB)
             scale = sinA/sinB
             
