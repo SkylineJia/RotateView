@@ -1,6 +1,0 @@
-framework module Pods_RotateView {
-  umbrella header "Pods-RotateView-umbrella.h"
-
-  export *
-  module * { export * }
-}
